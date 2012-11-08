@@ -48,9 +48,13 @@
 	<div class="span7">
 		<div id="reactVid" style="width: 540px; height: 350px;"></div>
 	</div>
+</div>
+<div>
+{% for reaction in reactions %}
 
-	
+<img src="{{reaction.fileID}}" height="160" width="120">
 
+{% endfor %}
 </div>
 
 {% endblock %}

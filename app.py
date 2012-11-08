@@ -82,14 +82,17 @@ def vid_view(vid_id):
 @app.route("/s/<share_id>")
 def share_page(share_id):
 	try:
-		share = models.Share.objects.get(easy_id=share_id)
-		vid_id = share.youTubeID
-		time = share.reactionTime
-		# prepare data for template
+		this_share = models.Share.objects.get(easy_id=share_id)
+		vid_id = this_share.youTubeID
+		time = this_share.reactionTime
+		
+		reactions = models.Reaction.objects(share=this_share)
+
 		templateData = {
 			'vid_id' : vid_id,
 			'reaction_time': time,
-			'share_id': share_id
+			'share_id': share_id,
+			'reactions' : reactions
 		}
 		# render and return template
 		return render_template('video_view.html', **templateData)
