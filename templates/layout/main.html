@@ -14,6 +14,27 @@
         <!-- Get Font from Google http://www.google.com/webfonts -->
         <link href='http://fonts.googleapis.com/css?family=Peralta' rel='stylesheet' type='text/css'>
 
+        <!-- Popcorn: -->
+        <script src="http://popcornjs.org/code/dist/popcorn-complete.min.js"></script>
+        <script>
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var reactVid = Popcorn.youtube(
+               '#reactVid',
+               'http://www.youtube.com/embed/{{ vid_id }}' );
+            var snapped = false;
+            function vidCheck() {
+                if( (reactVid.roundTime() == 11) && (snapped == false)) {
+                    take_snapshot();
+                    snapped = true;
+                }
+            }
+            var t = setInterval(vidCheck,1000);
+        });
+
+        </script>
+
         {% block styles %}{% endblock %}
 
     </head>
@@ -24,7 +45,7 @@
         <div class="container">
 
             <h1 class="pageheader">
-                <a href="/">ITP IDEAS</a>
+                <a href="/">Video Reactions</a>
             </h1>
 
             <hr>
@@ -35,7 +56,7 @@
 
             <hr/>
             <footer>
-                <p><a href="http://itppyweb.herokuapp.com">ITP DWD Fall 2012</a>
+                <p><a href="http://itppyweb.herokuapp.com">ITP Conversational Spaces</a>
                </p>
             </footer>
 

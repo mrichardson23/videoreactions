@@ -74,29 +74,18 @@ def index():
 		return render_template("main.html", **templateData)
 
 # Display all ideas for a specific category
-@app.route("/category/<cat_name>")
-def by_category(cat_name):
+@app.route("/v/<vid_id>")
+def vid_view(vid_id):
 
-	# try and get ideas where cat_name is inside the categories list
-	try:
-		ideas = models.Idea.objects(categories=cat_name)
-
-	# not found, abort w/ 404 page
-	except:
-		abort(404)
+	vid_id = "Q_EjDpYgmYo"
 
 	# prepare data for template
 	templateData = {
-		'current_category' : {
-			'slug' : cat_name,
-			'name' : cat_name.replace('_',' ')
-		},
-		'ideas' : ideas,
-		'categories' : categories
+		'vid_id' : vid_id,
 	}
 
 	# render and return template
-	return render_template('category_listing.html', **templateData)
+	return render_template('video_view.html', **templateData)
 
 
 @app.route("/ideas/<idea_slug>")
