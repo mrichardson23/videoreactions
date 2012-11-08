@@ -2,6 +2,8 @@
 import os, datetime
 import re
 from unidecode import unidecode
+import string
+import random
 
 
 from flask import Flask, request, render_template, redirect, abort
@@ -38,43 +40,16 @@ categories = ['web','physical computing','software','video','music','installatio
 @app.route("/", methods=['GET','POST'])
 def index():
 
-	# get Idea form from models.py
-	idea_form = models.IdeaForm(request.form)
-	
-	# if form was submitted and it is valid...
-	if request.method == "POST" and idea_form.validate():
-	
-		# get form data - create new idea
-		idea = models.Idea()
-		idea.creator = request.form.get('creator','anonymous')
-		idea.title = request.form.get('title','no title')
-		idea.slug = slugify(idea.title + " " + idea.creator)
-		idea.idea = request.form.get('idea','')
-		idea.categories = request.form.getlist('categories') # getlist will pull multiple items 'categories' into a list
-		
-		idea.save() # save it
+	vid_id = "toCome"
+	time = "to come"
 
-		# redirect to the new idea page
-		return redirect('/ideas/%s' % idea.slug)
-
-	else:
-
-		# for form management, checkboxes are weird (in wtforms)
-		# prepare checklist items for form
-		# you'll need to take the form checkboxes submitted
-		# and idea_form.categories list needs to be populated.
-		if request.method=="POST" and request.form.getlist('categories'):
-			for c in request.form.getlist('categories'):
-				idea_form.categories.append_entry(c)
-
-
-		# render the template
-		templateData = {
-			'ideas' : models.Idea.objects(),
-			'categories' : categories,
-			'form' : idea_form
+	templateData = {
+			'vid_id' : vid_id,
+			'reaction_time': time
 		}
-		return render_template("main.html", **templateData)
+
+	return render_template('welcome.html', **templateData)
+
 
 # Display all ideas for a specific category
 @app.route("/v/<vid_id>")
@@ -103,36 +78,55 @@ def vid_view(vid_id):
 		return render_template('video_new.html', **templateData)
 
 
+# Display all ideas for a specific category
+@app.route("/s/<share_id>")
+def share_page(share_id):
+	try:
+		share = models.Share.objects.get(easy_id=share_id)
+		vid_id = share.youTubeID
+		time = share.reactionTime
+		# prepare data for template
+		templateData = {
+			'vid_id' : vid_id,
+			'reaction_time': time,
+			'share_id': share_id
+		}
+		# render and return template
+		return render_template('video_view.html', **templateData)
+
+	except:
+		return render_template('404.html'), 404
+
 
 @app.route("/add", methods=['POST'])
 def add():
 	# if form was submitted and it is valid...
 	if request.method == "POST":
-	
 		# get form data - create new idea
-		video = models.Video()
-		video.youTubeID = request.form.get('id','')
-		video.reactionTime = request.form.get('time','')
-		video.save() # save it
+		share = models.Share()
+		share.youTubeID = request.form.get('id','')
+		share.reactionTime = request.form.get('time','')
+		share.easy_id = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for x in range(5))
+		share.save() # save it
 
 		# redirect to the new idea page
-		return redirect('/v/%s' % request.form.get('id',''))
+		return redirect('/s/%s' % share.easy_id)
 
-@app.route("/upload", methods=['POST', 'GET'])
-def upload():
-	if request.method == 'POST':
-		ourData = request.stream.read()
-		#filename = 'works.jpg'
-		#conn = S3Connection('AKIAJ72GKBG7RUPSN2RA', 'tPMdmk8vCxq1PvqeSKideTPnTzVK2bN8TE4uDAZ4')
-		#bucket = 'video_reactions'
-		#k = Key(bucket)
-		#k.key = 'foobar'
-		return type(ourData)
+
+@app.route("/addreaction", methods=['POST'])
+def add_reaction():
+	# if form was submitted and it is valid...
+	if request.method == "POST":
+		# get form data - create new idea
+		reaction = models.Reaction()
+		reaction.fileID = request.form.get('file','')
+		reaction.share = models.Share.objects.get(easy_id=request.form.get('share_id',''))
+		reaction.save() # save it
+	return "OK"
 
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
-
 
 
 # --------- Server On ----------

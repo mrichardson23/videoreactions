@@ -14,7 +14,7 @@
     	<script type="text/javascript" src="{{ url_for('static', filename='js/webcam.js') }}"></script>
     	<!-- Configure a few settings -->
     	<script language="JavaScript">
-        	webcam.set_api_url( 'http://chas.mattrichardson.net/vidReactions/test.php?id={{ vid_id }}' );
+        	webcam.set_api_url( 'http://chas.mattrichardson.net/vidReactions/test.php?id={{ share_id }}' );
         	webcam.set_quality( 90 ); // JPEG quality (1 - 100)
         	webcam.set_shutter_sound( false ); // play shutter click sound
     	</script>
@@ -29,11 +29,7 @@
 		}
 
 		function my_delayed_completion_handler(msg) {
-			/* document.getElementById('upload_results').innerHTML = 
-			'<h1>Your reaction:</h1>' + 
-			'<img src="' + msg + '" style="height: 240px; width: 320px;">';
-					// reset camera for another shot
-					*/
+			$.post("/addreaction", { share_id: '{{ share_id }}', file: msg } );
 		}
 		
 		function my_completion_handler(msg) {

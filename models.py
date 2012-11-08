@@ -6,10 +6,11 @@ from datetime import datetime
 
 import logging
 
-class Video(Document):
+class Share(Document):
+	easy_id = StringField()
 	youTubeID = StringField()
 	reactionTime = IntField()
 
 class Reaction(Document):
-	video = ReferenceField('Video')
-	fileName = StringField()
+	share = ReferenceField('Share')
+	fileID = StringField()
