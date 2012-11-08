@@ -16,7 +16,10 @@ import models
 import json
 from flask import jsonify
 
-import requests
+# for file uploads
+import boto
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
 
 app = Flask(__name__)   # create our flask app
 app.config['CSRF_ENABLED'] = False
@@ -76,7 +79,6 @@ def index():
 # Display all ideas for a specific category
 @app.route("/v/<vid_id>")
 def vid_view(vid_id):
-
 	try:
 		video = models.Video.objects.get(youTubeID=vid_id)
 		vid_id = video.youTubeID
@@ -116,21 +118,20 @@ def add():
 		# redirect to the new idea page
 		return redirect('/v/%s' % request.form.get('id',''))
 
+@app.route("/upload", methods=['POST', 'GET'])
+def upload():
+	if request.method == 'POST':
+		ourData = request.stream.read()
+		#filename = 'works.jpg'
+		#conn = S3Connection('AKIAJ72GKBG7RUPSN2RA', 'tPMdmk8vCxq1PvqeSKideTPnTzVK2bN8TE4uDAZ4')
+		#bucket = 'video_reactions'
+		#k = Key(bucket)
+		#k.key = 'foobar'
+		return type(ourData)
 
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
-
-
-# slugify the title 
-# via http://flask.pocoo.org/snippets/5/
-_punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
-def slugify(text, delim=u'-'):
-	"""Generates an ASCII-only slug."""
-	result = []
-	for word in _punct_re.split(text.lower()):
-		result.extend(unidecode(word).split())
-	return unicode(delim.join(result))
 
 
 
