@@ -14,7 +14,7 @@
     	<script type="text/javascript" src="{{ url_for('static', filename='js/webcam.js') }}"></script>
     	<!-- Configure a few settings -->
     	<script language="JavaScript">
-        	webcam.set_api_url( 'http://nosdrahcir.com/reactions/test.php' );
+        	webcam.set_api_url( 'http://nosdrahcir.com/reactions/test.php?id={{ vid_id }}' );
         	webcam.set_quality( 90 ); // JPEG quality (1 - 100)
         	webcam.set_shutter_sound( false ); // play shutter click sound
     	</script>
@@ -46,7 +46,6 @@
 			else alert("PHP Error: " + msg);
 		}
 		</script>
-		this is where the webcam goes
 
 	</div>
 
