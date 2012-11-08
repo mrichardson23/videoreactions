@@ -77,15 +77,44 @@ def index():
 @app.route("/v/<vid_id>")
 def vid_view(vid_id):
 
-	vid_id = "Q_EjDpYgmYo"
+	try:
+		video = models.Video.objects.get(youTubeID=vid_id)
+		vid_id = video.youTubeID
+		time = video.reactionTime
+		# prepare data for template
+		templateData = {
+			'vid_id' : vid_id,
+			'reaction_time': time
+		}
 
-	# prepare data for template
-	templateData = {
-		'vid_id' : vid_id,
-	}
+		# render and return template
+		return render_template('video_view.html', **templateData)
 
-	# render and return template
-	return render_template('video_view.html', **templateData)
+	except:
+		vid_id = vid_id
+		templateData = {
+			'vid_id' : vid_id,
+			'reaction_time': 0
+		}
+
+		# render and return template
+		return render_template('video_new.html', **templateData)
+
+
+
+@app.route("/add", methods=['POST'])
+def add():
+	# if form was submitted and it is valid...
+	if request.method == "POST":
+	
+		# get form data - create new idea
+		video = models.Video()
+		video.youTubeID = request.form.get('id','')
+		video.reactionTime = request.form.get('time','')
+		video.save() # save it
+
+		# redirect to the new idea page
+		return redirect('/v/%s' % request.form.get('id',''))
 
 
 @app.errorhandler(404)

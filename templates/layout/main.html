@@ -25,7 +25,7 @@
                'http://www.youtube.com/embed/{{ vid_id }}' );
             var snapped = false;
             function vidCheck() {
-                if( (reactVid.roundTime() == 11) && (snapped == false)) {
+                if( (reactVid.roundTime() == {{ reaction_time }}) && (snapped == false)) {
                     take_snapshot();
                     snapped = true;
                 }
