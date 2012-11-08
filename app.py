@@ -116,6 +116,19 @@ def add():
 		return redirect('/s/%s' % share.easy_id)
 
 
+@app.route("/listing", methods=['GET'])
+def get_listing():
+
+	shares = models.Share.objects()
+
+	templateData = {
+		'shares' : shares
+	}
+
+	# render and return template
+	return render_template('listing.html', **templateData)
+
+
 @app.route("/addreaction", methods=['POST'])
 def add_reaction():
 	# if form was submitted and it is valid...
