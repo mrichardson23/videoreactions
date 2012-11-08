@@ -22,7 +22,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             var reactVid = Popcorn.youtube(
                '#reactVid',
-               'http://www.youtube.com/embed/{{ vid_id }}' );
+               'http://www.youtube.com/embed/{{ vid_id }}?showinfo=0' );
             var snapped = false;
             function vidCheck() {
                 if( (reactVid.roundTime() == {{ reaction_time }}) && (snapped == false)) {

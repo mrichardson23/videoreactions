@@ -18,8 +18,11 @@
         	webcam.set_quality( 90 ); // JPEG quality (1 - 100)
         	webcam.set_shutter_sound( false ); // play shutter click sound
     	</script>
+    	
+    	<p>Before playing the video, click "Allow" below:</p>
 
 		<script language="JavaScript">
+
 			document.write( webcam.get_html(320, 240) );
 
 		webcam.set_hook( 'onComplete', 'my_completion_handler' );
@@ -46,13 +49,14 @@
 	</div>
 
 	<div class="span7">
+
 		<div id="reactVid" style="width: 540px; height: 350px;"></div>
 	</div>
 </div>
 <div>
 {% for reaction in reactions %}
 
-<img src="{{reaction.fileID}}" height="160" width="120">
+<img src="{{reaction.fileID}}" height="160" width="120" style="margin-top:10px;">
 
 {% endfor %}
 </div>
