@@ -7,9 +7,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>{{ title }}</title>
-        <meta name="description" content="ITP DWD Example Site using templates">
+
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+        {% if vid_id %}
+        <meta name="og:description" content="How will you react to this video?">
+        <meta property="og:image" content="http://img.youtube.com/vi/{{ vid_id }}/hqdefault.jpg"/>
+        {% endif %}
 
         <!-- Get Font from Google http://www.google.com/webfonts -->
         <link href='http://fonts.googleapis.com/css?family=Peralta' rel='stylesheet' type='text/css'>

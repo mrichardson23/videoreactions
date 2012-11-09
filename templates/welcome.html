@@ -8,43 +8,56 @@
 
 var newVid;
 
+// Disable enter key for form submission:
+$(function() {
+	$("form").bind("keypress", function(e) {
+		if (e.keyCode == 13) return false;
+	});
+});
+
+// This function returns the YouTube video ID from a YouTube URL.
+// If it's not a YouTube URL, it returns null.
+// To Do: Handle youtu.be URLS
 function getVideoId(url){
-    if(url.indexOf('?') === -1)
-        return null;
-    var query = decodeURI(url).split('?')[1];
-    var params = query.split('&');      
-    for(var i=0,l = params.length;i<l;i++)
-        if(params[i].indexOf('v=') === 0)
-        {
-        	return params[i].replace('v=','');
-        }         
-    return null;
+	if(url.indexOf('?') === -1)
+		return null;
+	var query = decodeURI(url).split('?')[1];
+	var params = query.split('&');      
+	for(var i=0,l = params.length;i<l;i++)
+		if(params[i].indexOf('v=') === 0)
+		{
+			return params[i].replace('v=','');
+		}         
+	return null;
 }
 
+// This function checks the URL box and activates the page to change
+// as soon as a valid YouTube URL is entered:
 function youTubeChecker() {
-	url = document.getElementById('url').value;
-	if (getVideoId(url) != null) {
-		clearInterval(t);
-		$('#youtuber').hide();
-		$('#newVid').show();
-		document.forms['add'].id.value = getVideoId(url);
-		document.getElementById("submit").disabled=false;
-		newVid = Popcorn.youtube('#newVid', 'http://www.youtube.com/embed/' + getVideoId(url) + '?showinfo=0' );
-		var c=setInterval(timeUpdater,500);
-		$('#timer').show();
-		$('#submit').show();
+	url = document.getElementById('url').value; // get the velue of the text box
+	if (getVideoId(url) != null) { // if it's a YouTube URL:
+		clearInterval(t); // stop running this function repeatedly
+		$('#youtuber').hide(); // hide the entry box
+		$('#newVid').show(); // show the embedded video container div
+		document.forms['add'].id.value = getVideoId(url); // update the hidden field in the form with the youtube ID
+		document.getElementById("submit").disabled=false; // activate the submit button... not really needed anymore, but hey.
+		newVid = Popcorn.youtube('#newVid', 'http://www.youtube.com/embed/' + getVideoId(url) + '?showinfo=0' ); // Pull up the video
+		var c=setInterval(timeUpdater,500); // start running the time update function
+		$('#timer').show(); // show the time div
+		$('#submit').show(); // show the submit button
 	}
 	else {
 		document.getElementById("submit").disabled=true;
+		//not really needed anymore since the submit box goes away after entry. keeping it for now.
 	}
 }
 
 function timeUpdater() {
-	document.forms['add'].time.value = newVid.roundTime();
-	$('#timer').html("Take picture of my friends at " + newVid.roundTime() + " seconds.")
+	document.forms['add'].time.value = newVid.roundTime(); // Update the form's hidden field.
+	$('#timer').html("Take picture of my friends at " + newVid.roundTime() + " seconds.") //update the page display
 }
 
-var t=setInterval(youTubeChecker,1000);
+var t=setInterval(youTubeChecker,500); // run the YouTube checker function 2x a second
 
 </script>
 

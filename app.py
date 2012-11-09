@@ -39,16 +39,7 @@ categories = ['web','physical computing','software','video','music','installatio
 # this is our main page
 @app.route("/", methods=['GET','POST'])
 def index():
-
-	vid_id = "toCome"
-	time = "to come"
-
-	templateData = {
-			'vid_id' : vid_id,
-			'reaction_time': time
-		}
-
-	return render_template('welcome.html', **templateData)
+	return render_template('welcome.html')
 
 
 # Display all ideas for a specific category
