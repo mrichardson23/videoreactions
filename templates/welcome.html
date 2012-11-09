@@ -3,18 +3,63 @@
 
 
 {% block body %}
+<script src="http://popcornjs.org/code/dist/popcorn-complete.min.js"></script>
+<script language="JavaScript">
 
+var newVid;
+
+function getVideoId(url){
+    if(url.indexOf('?') === -1)
+        return null;
+    var query = decodeURI(url).split('?')[1];
+    var params = query.split('&');      
+    for(var i=0,l = params.length;i<l;i++)
+        if(params[i].indexOf('v=') === 0)
+        {
+        	return params[i].replace('v=','');
+        }         
+    return null;
+}
+
+function youTubeChecker() {
+	url = document.getElementById('url').value;
+	if (getVideoId(url) != null) {
+		clearInterval(t);
+		$('#youtuber').hide();
+		$('#newVid').show();
+		document.forms['add'].id.value = getVideoId(url);
+		document.getElementById("submit").disabled=false;
+		newVid = Popcorn.youtube('#newVid', 'http://www.youtube.com/embed/' + getVideoId(url) + '?showinfo=0' );
+		var c=setInterval(timeUpdater,500);
+		$('#timer').show();
+		$('#submit').show();
+	}
+	else {
+		document.getElementById("submit").disabled=true;
+	}
+}
+
+function timeUpdater() {
+	document.forms['add'].time.value = newVid.roundTime();
+	$('#timer').html("Take picture of my friends at " + newVid.roundTime() + " seconds.")
+}
+
+var t=setInterval(youTubeChecker,1000);
+
+</script>
 
 <div class="row">
-
-
 	<div class="span12">
-		<form action="add" method="post">
-			Enter a YouTube video ID: <input type="text" name="id"><br />
-			Enter a Time in seconds: <input type="text" name="time"><br />
-			<input type="submit" value="Submit">
+		<form action="add" method="post" name="add">
+			<div id="youtuber">Enter a YouTube video URL: <input type="text" id="url" name="url"><br /></div>
+			<input type="hidden" name="id" value="">
+			<input type="hidden" name="time" value="">
+			<div id="newVid" style="width: 540px; height: 350px; display: none;"></div>
+			<div id="timer" style="display: none;">Take picture of my friends at seconds.</div>
+			<input type="submit" value="Get Link" id="submit" disabled="true" hidden="true">
 		</form>
 	</div>
+
 
 
 </div>

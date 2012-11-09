@@ -4,6 +4,26 @@
 
 {% block body %}
 
+        <!-- Popcorn: -->
+        <script src="http://popcornjs.org/code/dist/popcorn-complete.min.js"></script>
+        <script>
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var reactVid = Popcorn.youtube(
+               '#reactVid',
+               'http://www.youtube.com/embed/{{ vid_id }}?showinfo=0' );
+            var snapped = false;
+            function vidCheck() {
+                if( (reactVid.roundTime() == {{ reaction_time }}) && (snapped == false)) {
+                    take_snapshot();
+                    snapped = true;
+                }
+            }
+            var t = setInterval(vidCheck,1000);
+        });
+
+        </script>
 
 <div class="row">
 
@@ -54,6 +74,7 @@
 	</div>
 </div>
 <div>
+	<p>Reactions:</p>
 {% for reaction in reactions %}
 
 <img src="{{reaction.fileID}}" height="160" width="120" style="margin-top:10px;">
