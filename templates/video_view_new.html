@@ -58,12 +58,12 @@ jQuery("#webcam").webcam({
     onTick: function() {
     },
 
-    onSave: function(data) {
+    onSave: function(data, response) {
+        alert(response);
     },
 
     onCapture: function () {
-        var response = webcam.save('http://chas.mattrichardson.net/vidReactions/test.php?id={{ share_id }}');
-        alert(response);
+        webcam.save('http://chas.mattrichardson.net/vidReactions/test.php?id={{ share_id }}');
     },
 
     debug: function () {
