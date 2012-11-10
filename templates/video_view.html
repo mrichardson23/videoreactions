@@ -43,10 +43,16 @@
 
 		<script language="JavaScript">
 
-			document.write( webcam.get_html(320, 240) );
+		document.write( webcam.get_html(320, 240) );
 
 		webcam.set_hook( 'onComplete', 'my_completion_handler' );
+
+		webcam.set_hook( 'onLoad', 'my_load_handler' );
 		
+		function my_load_handler() {
+
+		}
+
 		function take_snapshot() {
 			webcam.snap();
 		}
@@ -70,17 +76,28 @@
 
 	<div class="span7">
 
-		<div id="reactVid" style="width: 540px; height: 350px;"></div>
+			<div id="reactVid" style="width: 540px; height: 350px; z-index: -1;"></div>
+
 	</div>
 </div>
 <div>
-	<p>Reactions:</p>
-{% for reaction in reactions %}
-
-<img src="{{reaction.fileID}}" height="160" width="120" style="margin-top:10px;">
-
-{% endfor %}
+	{% if reactions %}
+	<p><a href="#" id="showReactions">Show Reactions</a></p>
+	<div id="reactions" style="display: none;">
+		{% for reaction in reactions %}
+			<img src="{{reaction.fileID}}" height="160" width="120" style="margin-top:10px;">
+		{% endfor %}
+	</div>
+	{% endif %}
 </div>
+
+
+	<script>
+		$('#showReactions').click(function(event) {
+		      $('#reactions').show('slow');
+		      $('#showReactions').html("");
+		});
+	</script>
 
 {% endblock %}
 
