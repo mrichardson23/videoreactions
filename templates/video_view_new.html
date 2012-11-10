@@ -59,11 +59,11 @@ jQuery("#webcam").webcam({
     },
 
     onSave: function(data) {
-        alert(data);
     },
 
     onCapture: function () {
-        webcam.save('http://chas.mattrichardson.net/vidReactions/test.php?id={{ share_id }}');
+        var response = webcam.save('http://chas.mattrichardson.net/vidReactions/test.php?id={{ share_id }}');
+        alert(response);
     },
 
     debug: function () {
