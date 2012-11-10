@@ -54,7 +54,7 @@ function youTubeChecker() {
 
 function timeUpdater() {
 	document.forms['add'].time.value = newVid.roundTime(); // Update the form's hidden field.
-	$('#timer').html('<input type="submit" class="btn btn-primary" value="Take picture of my friends at ' + newVid.roundTime() + ' seconds." id="submit"><br /><a href="#" onClick="window.location.reload()">Cancel</a>') //update the page display
+	$('#timer').html('<input type="submit" class="btn btn-primary" value="Snap their picture at ' + newVid.roundTime() + ' seconds." id="submit"><br /><a href="#" onClick="window.location.reload()">Cancel</a>') //update the page display
 }
 
 var t=setInterval(youTubeChecker,500); // run the YouTube checker function 2x a second
