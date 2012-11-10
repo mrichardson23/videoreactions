@@ -14,7 +14,7 @@
             var snapped = false;
             function vidCheck() {
                 if( (reactVid.roundTime() == {{ reaction_time }}) && (snapped == false)) {
-                    webcam.save('http://chas.mattrichardson.net/vidReactions/test.php?id={{ share_id }}');
+                    webcam.capture();
                     snapped = true;
                 }
             }
@@ -63,6 +63,7 @@ jQuery("#webcam").webcam({
     },
 
     onCapture: function () {
+        webcam.save('http://chas.mattrichardson.net/vidReactions/test.php?id={{ share_id }}');
     },
 
     debug: function () {
