@@ -47,14 +47,14 @@ function youTubeChecker() {
 		$('#submit').show(); // show the submit button
 	}
 	else {
-		document.getElementById("submit").disabled=true;
+		//document.getElementById("submit").disabled=true;
 		//not really needed anymore since the submit box goes away after entry. keeping it for now.
 	}
 }
 
 function timeUpdater() {
 	document.forms['add'].time.value = newVid.roundTime(); // Update the form's hidden field.
-	$('#timer').html("Take picture of my friends at " + newVid.roundTime() + " seconds.") //update the page display
+	$('#timer').html('<input type="submit" class="btn btn-primary" value="Snap their picture at ' + newVid.roundTime() + ' seconds." id="submit"><br /><a href="#" onClick="window.location.reload()">Cancel</a>') //update the page display
 }
 
 var t=setInterval(youTubeChecker,500); // run the YouTube checker function 2x a second
@@ -69,9 +69,11 @@ var t=setInterval(youTubeChecker,500); // run the YouTube checker function 2x a 
 			</div>
 			<input type="hidden" name="id" value="">
 			<input type="hidden" name="time" value="">
-			<div id="newVid" style="width: 540px; height: 350px; display: none;"></div>
-			<div id="timer" style="display: none;">Take picture of my friends at seconds.</div>
-			<input type="submit" value="Get Link" id="submit" disabled="true" hidden="true">
+			<div id="newVid" style="width: 100%; height: 550px; display: none;"></div>
+			<br />
+			<div id="timer" style="display: none; text-align: center;"><h2>Take picture of my friends at seconds.</h2>
+			<input type="submit" value="Get Link" class="btn" id="submit">
+			</div>
 		</form>
 	</div>
 

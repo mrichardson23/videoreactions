@@ -1,0 +1,82 @@
+{% from "_form_helpers.html" import render_error, render_textarea %}
+{% extends "layout/main.html" %}
+
+
+{% block body %}
+
+        <!-- Popcorn: -->
+        <script src="http://popcornjs.org/code/dist/popcorn-complete.min.js"></script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var reactVid = Popcorn.youtube(
+               '#reactVid',
+               'http://www.youtube.com/embed/{{ vid_id }}?showinfo=0' );
+            var snapped = false;
+            function vidCheck() {
+                if( (reactVid.roundTime() == {{ reaction_time }}) && (snapped == false)) {
+                    webcam.capture();
+                    snapped = true;
+                }
+            }
+            var t = setInterval(vidCheck,1000);
+        });
+        </script>
+
+<div class="row">
+	<!-- left column -->
+	<div class="span5">
+		<!-- Webcam: -->
+    	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.webcam.js') }}"></script>
+    	<!-- Configure a few settings -->
+    	<p>Before playing the video, click "Allow" below:</p>
+		<div id="webcam"></div>
+	</div>
+
+	<div class="span7">
+		<div id="reactVid" style="width: 540px; height: 350px;"></div>
+	</div>
+</div>
+<div>
+	<p>Reactions:</p>
+{% for reaction in reactions %}
+
+<img src="{{reaction.fileID}}" height="160" width="120" style="margin-top:10px;">
+
+{% endfor %}
+</div>
+
+
+<script>
+
+jQuery("#webcam").webcam({
+
+    width: 320,
+    height: 240,
+    mode: "save",
+    swffile: "{{ url_for('static', filename='js/jscam.swf') }}",
+
+    onTick: function() {
+    },
+
+    onSave: function(data) {
+        alert(response);
+    },
+
+    onCapture: function () {
+        webcam.save('http://chas.mattrichardson.net/vidReactions/test.php?id={{ share_id }}');
+    },
+
+    debug: function () {
+    },
+
+    onLoad: function () {
+    }
+});
+</script>
+
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}

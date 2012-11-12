@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{{ title }}</title>
+        <title>freeze frames</title>
 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
@@ -14,6 +14,7 @@
         {% if vid_id %}
         <meta name="og:description" content="How will you react to this video?">
         <meta property="og:image" content="http://img.youtube.com/vi/{{ vid_id }}/hqdefault.jpg"/>
+        <meta property="og:title" content="freeze frames"/>
         {% endif %}
 
         <!-- Get Font from Google http://www.google.com/webfonts -->
@@ -28,19 +29,30 @@
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
         <div class="container">
+<<<<<<< HEAD
 			<h2>freezefram.es</h2>
             <h1 class="pageheader">
                 <!--<a href="/">Video Reactions</a>-->
                 Capture your friends' reactions.
             </h1>
+=======
+
+            <h3 class="pageheader">
+                <a href="/">freeze frames</a>
+            </h3>
+
+>>>>>>> 5eb7162adb388330eff4bcb7f5519afae9a8ebca
 
             {% block body %}{% endblock %}
 
 
-            <hr/>
             <footer>
+<<<<<<< HEAD
                 <h3><a href="http://itppyweb.herokuapp.com">Share</a> | <a href="http://itppyweb.herokuapp.com">About</a>
                </h3>
+=======
+                <p><a href="about">About</a></p>
+>>>>>>> 5eb7162adb388330eff4bcb7f5519afae9a8ebca
             </footer>
 
         </div> <!-- /container -->

@@ -41,6 +41,10 @@ categories = ['web','physical computing','software','video','music','installatio
 def index():
 	return render_template('welcome.html')
 
+# this is our main page
+@app.route("/camtest", methods=['GET','POST'])
+def camtest():
+	return render_template('camtest.html')
 
 # Display all ideas for a specific category
 @app.route("/v/<vid_id>")
@@ -87,6 +91,28 @@ def share_page(share_id):
 		}
 		# render and return template
 		return render_template('video_view.html', **templateData)
+
+	except:
+		return render_template('404.html'), 404
+
+
+@app.route("/t/<share_id>")
+def share_page_test(share_id):
+	try:
+		this_share = models.Share.objects.get(easy_id=share_id)
+		vid_id = this_share.youTubeID
+		time = this_share.reactionTime
+		
+		reactions = models.Reaction.objects(share=this_share)
+
+		templateData = {
+			'vid_id' : vid_id,
+			'reaction_time': time,
+			'share_id': share_id,
+			'reactions' : reactions
+		}
+		# render and return template
+		return render_template('video_view_new.html', **templateData)
 
 	except:
 		return render_template('404.html'), 404
