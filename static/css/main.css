@@ -9,9 +9,11 @@ span.label a {
 	color:#fff;
 }
 
-.pageheader {
+.pageheader a {
 	font-family: 'Borda', Helvetica, Arial, Sans-Serif;
 	font-size: 30px;
+	margin-top: 20px;
+	color: #B3FF00;
 }
 
 .pageMessage {
@@ -19,6 +21,7 @@ span.label a {
 	font-size: 120px;
 	line-height: 120px;
 	margin-top: 20px;
+	color: #FFFFFF;
 }
 
 input[type="text"] {
@@ -27,12 +30,21 @@ input[type="text"] {
 	width: 860px;
 	height: 65px;
 	text-align: center;
+	padding-top: 8px;
+}
+
+footer a {
+	font-family: 'Nexa Regular', Helvetica, Arial, Sans-Serif;
+	font-size: 18px;
+	line-height: 20px;
+	color: #FFFF00;
 }
 
 footer {
 	font-family: 'Nexa Regular', Helvetica, Arial, Sans-Serif;
 	font-size: 18px;
 	line-height: 20px;
+	color: #FFFF00;
 }
 
 

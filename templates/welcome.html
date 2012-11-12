@@ -8,6 +8,13 @@
 
 var newVid;
 
+//randomize background color
+$(document).ready(function(){
+  var colors = ["#007BFD","#969696","#FF007C","#FF5100","#8A39DC"];                
+  var rand = Math.floor(Math.random()*colors.length);           
+  $("body").css("background-color", colors[rand]);
+});
+
 // Disable enter key for form submission:
 $(function() {
 	$("form").bind("keypress", function(e) {
