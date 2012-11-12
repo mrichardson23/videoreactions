@@ -37,14 +37,20 @@ function youTubeChecker() {
 	url = document.getElementById('url').value; // get the velue of the text box
 	if (getVideoId(url) != null) { // if it's a YouTube URL:
 		clearInterval(t); // stop running this function repeatedly
-		$('#youtuber').hide(); // hide the entry box
+		//$('#youtuber').hide(); // hide the entry box
 		$('#newVid').show(); // show the embedded video container div
+		$('#seperator').show();
 		document.forms['add'].id.value = getVideoId(url); // update the hidden field in the form with the youtube ID
 		document.getElementById("submit").disabled=false; // activate the submit button... not really needed anymore, but hey.
 		newVid = Popcorn.youtube('#newVid', 'http://www.youtube.com/embed/' + getVideoId(url) + '?showinfo=0' ); // Pull up the video
 		var c=setInterval(timeUpdater,500); // start running the time update function
 		$('#timer').show(); // show the time div
 		$('#submit').show(); // show the submit button
+		$('html, body').animate({ 
+   			scrollTop: $(document).height()-$(window).height()}, 
+   		1400, 
+   		"easeOutQuint"
+		);
 	}
 	else {
 		//document.getElementById("submit").disabled=true;
@@ -54,7 +60,7 @@ function youTubeChecker() {
 
 function timeUpdater() {
 	document.forms['add'].time.value = newVid.roundTime(); // Update the form's hidden field.
-	$('#timer').html('<input type="submit" class="btn btn-primary" value="Snap their picture at ' + newVid.roundTime() + ' seconds." id="submit"><br /><a href="#" onClick="window.location.reload()">Cancel</a>') //update the page display
+	$('#timer').html('<input type="submit" class="btn" value="Snap their picture at ' + newVid.roundTime() + ' seconds." id="submit"><br /><a href="#" onClick="window.location.reload()">Cancel</a>') //update the page display
 }
 
 var t=setInterval(youTubeChecker,500); // run the YouTube checker function 2x a second
@@ -73,6 +79,7 @@ var t=setInterval(youTubeChecker,500); // run the YouTube checker function 2x a 
 			</div>
 			<input type="hidden" name="id" value="">
 			<input type="hidden" name="time" value="">
+			<div id="seperator" style="width: 100%; height: 550px; display: none;"></div>
 			<div id="newVid" style="width: 100%; height: 550px; display: none;"></div>
 			<br />
 			<div id="timer" style="display: none; text-align: center;"><h2>Take picture of my friends at seconds.</h2>
