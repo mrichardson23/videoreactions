@@ -25,19 +25,18 @@
 		<link rel="stylesheet" href="/static/css/webfonts/nexa-regular.css" type="text/css" charset="utf-8" />
 		<link rel="stylesheet" href="/static/css/webfonts/nexa-black.css" type="text/css" charset="utf-8" />
 		
+		<!--JQuery-->
+         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+        {% block styles %}{% endblock %}
+
 		<!-- background color randomizer -->
-		<script language="JavaScript">
+		<script>
 		$(document).ready(function(){
 			var colors = ["#007BFD","#969696","#FF007C","#FF5100","#8A39DC"];                
 			var rand = Math.floor(Math.random()*colors.length);           
 			$("body").css("background-color", colors[rand]);
 		});
 		</script>
-		
-		<!--JQuery-->
-         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-        {% block styles %}{% endblock %}
-
     </head>
     <body>
         <!--[if lt IE 7]>
