@@ -9,6 +9,30 @@ span.label a {
 	color:#fff;
 }
 
+.pageheader {
+	font-family: 'Borda', Helvetica, Arial, Sans-Serif;
+	font-size: 30px;
+}
+
+.pageMessage {
+	font-family: 'Nexa Black', Helvetica, Arial, Sans-Serif;
+	font-size: 120px;
+	line-height: 120px;
+	margin-top: 20px;
+}
+
+input[type="text"] {
+	font-family: 'Nexa Regular', Helvetica, Arial, Sans-Serif;
+	font-size: 28px;
+	width: 860px;
+	height: 65px;
+	text-align: center;
+}
+
+footer {
+	font-family: 'Nexa Regular', Helvetica, Arial, Sans-Serif;
+	font-size: 16px;
+}
 
 
 
