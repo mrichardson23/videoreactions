@@ -112,7 +112,7 @@ def share_page_test(share_id):
 			'reactions' : reactions
 		}
 		# render and return template
-		return render_template('video_view_new.html', **templateData)
+		return render_template('video_view_kim.html', **templateData)
 
 	except:
 		return render_template('404.html'), 404
