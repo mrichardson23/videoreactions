@@ -16,6 +16,10 @@ span.label a {
 	color: #B3FF00;
 }
 
+.about a {
+	font-size: 15px;
+}
+
 .pageMessage {
 	font-family: 'Nexa Black', Helvetica, Arial, Sans-Serif;
 	font-size: 120px;
