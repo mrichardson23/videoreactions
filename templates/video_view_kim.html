@@ -12,7 +12,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             var reactVid = Popcorn.youtube(
                '#reactVid',
-               'http://www.youtube.com/embed/{{ vid_id }}?showinfo=0' );
+               'http://www.youtube.com/embed/{{ vid_id }}?showinfo=0&wmode=transparent' );
             var snapped = false;
             function vidCheck() {
                 if( (reactVid.roundTime() == {{ reaction_time }}) && (snapped == false)) {
@@ -80,8 +80,8 @@
 
 	<div class="span7">
 
-			<div id="reactVid" style="width: 540px; height: 350px; z-index: -1;"></div>
-
+		<div id="reactVid" style="width: 540px; height: 350px; z-index: -1;">
+		</div>
 	</div>
 </div>
 <div class="row">
