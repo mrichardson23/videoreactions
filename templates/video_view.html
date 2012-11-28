@@ -41,9 +41,8 @@
     	</script>
     	
 
-
-    	<p>Before playing the video, click "Allow" below:</p>
-
+		<p>Click "Allow," or it won't work!</p>
+    	
 		<script language="JavaScript">
 
 		document.write( webcam.get_html(320, 240) );
@@ -84,8 +83,8 @@
 	</div>
 </div>
 <div class="row">
-		<p> Share this URL with your friends to capture their reaction:</p>
-    	<input type="text" value="http://www.freezefram.es/s/{{ share_id }}"></input>
+	<p> Share with your friends on <img src="{{ url_for('static', filename='img/Tblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/Tgrey.png') }}'" onmouseout="this.src='{{ url_for('static', filename='img/Tblue.png') }}'"/> or <img src="{{ url_for('static', filename='img/FBblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/FBgrey.png') }}'"onmouseout="this.src='{{ url_for('static', filename='img/FBblue.png') }}'"/>, or copy the link below:</p>
+    <input type="text" value="http://www.freezefram.es/s/{{ share_id }}"></input>
 </div>
 
 <div>
