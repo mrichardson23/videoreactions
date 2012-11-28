@@ -132,7 +132,7 @@ def add():
 		return redirect('/s/%s' % share.easy_id)
 
 @app.route("/ajaxadd", methods=['POST'])
-def add():
+def ajaxadd():
 	# if form was submitted and it is valid...
 	if request.method == "POST":
 		# get form data - create new idea
