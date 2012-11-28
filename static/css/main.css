@@ -28,6 +28,14 @@ span.label a {
 	color: #FFFFFF;
 }
 
+.instructions {
+	font-family: 'Nexa Black', Helvetica, Arial, Sans-Serif;
+	font-size: 53px;
+	line-height: 53px;
+	margin-top: 10px;
+	color: #FFFFFF;
+}
+
 input[type="text"] {
 	font-family: 'Nexa Regular', Helvetica, Arial, Sans-Serif;
 	font-size: 28px;
