@@ -46,7 +46,6 @@ def index():
 def camtest():
 	return render_template('camtest.html')
 
-# Display all ideas for a specific category
 @app.route("/v/<vid_id>")
 def vid_view(vid_id):
 	try:
@@ -131,6 +130,20 @@ def add():
 
 		# redirect to the new idea page
 		return redirect('/s/%s' % share.easy_id)
+
+@app.route("/ajaxadd", methods=['POST'])
+def add():
+	# if form was submitted and it is valid...
+	if request.method == "POST":
+		# get form data - create new idea
+		share = models.Share()
+		share.youTubeID = request.form.get('id','')
+		share.reactionTime = request.form.get('time','')
+		share.easy_id = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for x in range(5))
+		share.save() # save it
+
+		# redirect to the new idea page
+		return (share.easy_id)
 
 
 @app.route("/listing", methods=['GET'])
