@@ -39,7 +39,7 @@ categories = ['web','physical computing','software','video','music','installatio
 # this is our main page
 @app.route("/", methods=['GET','POST'])
 def index():
-	return render_template('welcome.html')
+	return render_template('welcome_new.html')
 
 # this is our main page
 @app.route("/camtest", methods=['GET','POST'])
@@ -138,7 +138,8 @@ def ajaxadd():
 		# get form data - create new idea
 		share = models.Share()
 		share.youTubeID = request.form.get('id','')
-		share.reactionTime = request.form.get('time','')
+		app.logger.debug("ID was: " + request.form.get('id',''))
+		share.reactionTime = int(request.form.get('time',''))
 		share.easy_id = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for x in range(5))
 		share.save() # save it
 

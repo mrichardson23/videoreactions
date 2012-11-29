@@ -1,0 +1,140 @@
+{% from "_form_helpers.html" import render_error, render_textarea %}
+{% extends "layout/main.html" %}
+
+
+{% block body %}
+<script src="http://popcornjs.org/code/dist/popcorn-complete.min.js"></script>
+<script language="JavaScript">
+
+var newVid;
+
+// Disable enter key for form submission:
+$(function() {
+	$("form").bind("keypress", function(e) {
+		if (e.keyCode == 13) return false;
+	});
+});
+
+// This function returns the YouTube video ID from a YouTube URL.
+// If it's not a YouTube URL, it returns null.
+// To Do: Handle youtu.be URLS
+function getVideoId(url){
+	if(url.indexOf('?') === -1)
+		return null;
+	var query = decodeURI(url).split('?')[1];
+	var params = query.split('&');      
+	for(var i=0,l = params.length;i<l;i++)
+		if(params[i].indexOf('v=') === 0)
+		{
+			return params[i].replace('v=','');
+		}         
+	return null;
+}
+
+// This function checks the URL box and activates the page to change
+// as soon as a valid YouTube URL is entered:
+function youTubeChecker() {
+	url = document.getElementById('url').value; // get the velue of the text box
+	if (getVideoId(url) != null) { // if it's a YouTube URL:
+		clearInterval(t); // stop running this function repeatedly
+		//$('#youtuber').hide(); // hide the entry box
+		$('#newVid').show(); // show the embedded video container div
+		$('#seperator').show();
+		$('#instructions').show();
+		$('#id').val(getVideoId(url)); // update the hidden field in the form with the youtube ID
+		//document.getElementById("submit").disabled=false; // activate the submit button... not really needed anymore, but hey.
+		newVid = Popcorn.youtube('#newVid', 'http://www.youtube.com/embed/' + getVideoId(url) + '?showinfo=0' ); // Pull up the video
+		var c=setInterval(timeUpdater,500); // start running the time update function
+		$('#timer').show(); // show the time div
+		$('#submit').show(); // show the submit button
+		$('html, body').animate({ 
+   			scrollTop: $(document).height()-$(window).height()}, 
+   		1400, 
+   		"easeOutQuint"
+		);
+
+		var videoID = 0;
+		var videoTime = "";
+
+		$('#button').click(function() {
+			$.ajax({
+  				type: 'POST',
+  				url: "/ajaxadd",
+  				//data: {id: $('#id').val(), time: newVid.roundTime()},
+  				data: {id: getVideoId(url), time: newVid.roundTime()},
+
+  				success: replyHander,
+  				dataType: "text"
+			});
+		});
+	}
+	else {
+		//document.getElementById("submit").disabled=true;
+		//not really needed anymore since the submit box goes away after entry. keeping it for now.
+	}
+}
+
+function replyHander(msg) {
+	$('#shareURL').html('Share this URL with your friends: <a href="http://' + document.domain + '/s/' + msg + '">http://' + document.domain + '/s/' + msg + '</a>');
+	$('#shareRow').show();
+	$('html, body').animate({ 
+   		scrollTop: $(document).height()-$(window).height()}, 
+   		1400, 
+   		"easeOutQuint"
+	);
+}
+
+function timeUpdater() {
+	$('#time').val(newVid.roundTime()); // Update the form's hidden field.
+	$('#button').html('Snap their picture at ' + newVid.roundTime() + ' seconds.') //update the page display
+	 /* $("#cancel").click(function() {
+            $('html, body').animate({ 
+   			scrollTop: 0}, 
+   			1400, 
+   			"easeOutQuint"
+		);
+            $('#newVid').hide();
+            $('#seperator').hide();
+            $('#timer').hide(); 
+			$('#submit').hide();
+			$('#url').val("");
+			t=setInterval(youTubeChecker,500);
+        }); */
+}
+
+var t=setInterval(youTubeChecker,500); // run the YouTube checker function 2x a second
+
+</script>
+
+<h1 class="pageMessage">
+	Capture your friends' reactions.
+</h1>
+
+<div class="row">
+	<div class="span12">
+			<div id="youtuber">
+				<input type="text" id="url" name="url" placeholder="Paste a YouTube URL here.">
+			</div>
+			<input type="hidden" name="id" value="">
+			<input type="hidden" name="time" value="">
+			<div id="seperator" style="width: 100%; height: 550px; display: none;"></div>
+			<div class="row" style="height: 400px;" >
+				<div id="newVid" class="span7" style="display: none; height: 300px;"></div>
+				<div id="instructions" class="span5" style="display: none;">&larr; Choose the time by pausing the video at the right moment.</div>
+			</div>
+			<div class="row">
+				<div id="timer" style="display: none; text-align: center;"><button class="button" value="Snap their picture at 0 seconds." id="button">Snap their picture at 0 seconds.</button></div>
+
+			</div>
+
+			<div class="row" id="shareRow" style="display:none;">
+				<div class="span12" id="shareURL"></div>
+			</div>
+	</div>
+</div>
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}
