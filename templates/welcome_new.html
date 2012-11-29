@@ -75,7 +75,7 @@ function youTubeChecker() {
 }
 
 function replyHander(msg) {
-	$('#shareURL').html('Share this URL with your friends: <a href="http://' + document.domain + '/s/' + msg + '">http://' + document.domain + '/s/' + msg + '</a>');
+	$('#shareURL').html('Share this URL with your friends &darr; <a href="http://' + document.domain + '/s/' + msg + '">http://' + document.domain + '/s/' + msg + '</a>');
 	$('#shareRow').show();
 	$('html, body').animate({ 
    		scrollTop: $(document).height()-$(window).height()}, 
@@ -122,7 +122,7 @@ var t=setInterval(youTubeChecker,500); // run the YouTube checker function 2x a 
 				<div id="newVid" class="span7" style="display: none; height: 300px;"></div>
 				<div id="instructions" class="span5" style="display: none;">&larr; Choose the time by pausing the video at the right moment.</div>
 			</div>
-			<div class="row">
+			<div class="row" id="buttonrow">
 				<div id="timer" style="display: none; text-align: center;"><button class="button" value="Snap their picture at 0 seconds." id="button">Snap their picture at 0 seconds.</button></div>
 
 			</div>

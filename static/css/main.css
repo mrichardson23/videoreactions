@@ -43,6 +43,19 @@ p {
 	color: #FFFFFF;
 }
 
+#shareRow {
+	font-family: 'Nexa Black', Helvetica, Arial, Sans-Serif;
+	font-size: 53px;
+	line-height: 53px;
+	margin-top: 250px;
+	margin-bottom: 250px;
+	color: #FFFFFF;
+}
+
+#buttonrow {
+	margin-bottom: 100px;
+}
+
 input[type="text"] {
 	font-family: 'Nexa Regular', Helvetica, Arial, Sans-Serif;
 	font-size: 28px;
