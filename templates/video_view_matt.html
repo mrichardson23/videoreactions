@@ -80,7 +80,6 @@
 					var image_url = RegExp.$1;
 					setTimeout(my_delayed_completion_handler(image_url), 3000);
 					$("#reactimg").attr("src",msg);
-					$("#reaction").show();
 				}
 				else alert("PHP Error: " + msg);
 			}
@@ -103,12 +102,11 @@
 	</div>
 </div>
 <div class="row" id="reactPrompt" style="display: none;">
-	<h1 class="videoMessage">
+	<h1 class="videoMessage" id="down3">
 		See how you reacted! &darr;
 	</h1>
 </div>
 
-</div>
 <div class="row" id="sep3" style="height: 700px; display: none;"></div>
 
 <!-- reaction -->
@@ -118,24 +116,27 @@
 			Here's how you reacted!
 		</h1>
 		<img src="" id="reactimg">
+		<h1 class="videoMessage" id="down4">
+			See others reactions! &darr;
+		</h1>
 	</div>
 </div>
 
+<div class="row" id="sep4" style="height: 700px; display: none;"></div>
 
-<div class="row" style="display: none;">
-	<p> Share with your friends on <img src="{{ url_for('static', filename='img/Tblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/Tgrey.png') }}'" onmouseout="this.src='{{ url_for('static', filename='img/Tblue.png') }}'"/> or <img src="{{ url_for('static', filename='img/FBblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/FBgrey.png') }}'"onmouseout="this.src='{{ url_for('static', filename='img/FBblue.png') }}'"/>, or copy the link below:</p>
-    <input type="text" value="http://www.freezefram.es/s/{{ share_id }}"></input>
-</div>
-
-<div>
+<div class="row" id="reactions" style="display: none;">
 	{% if reactions %}
-	<p><a href="#" id="showReactions">Show Reactions</a></p>
-	<div id="reactions" style="display: none;">
+	<div class="span12">
 		{% for reaction in reactions %}
-			<img src="{{reaction.fileID}}" height="160" width="120" style="margin-top:10px;">
+			<img src="{{reaction.fileID}}" height="576" width="216" style="margin-top:10px;" class="img-polaroid">
 		{% endfor %}
 	</div>
 	{% endif %}
+</div>
+
+<div class="row" style="display: none; padding-bottom: 20px;">
+	<p> Share with your friends on <img src="{{ url_for('static', filename='img/Tblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/Tgrey.png') }}'" onmouseout="this.src='{{ url_for('static', filename='img/Tblue.png') }}'"/> or <img src="{{ url_for('static', filename='img/FBblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/FBgrey.png') }}'"onmouseout="this.src='{{ url_for('static', filename='img/FBblue.png') }}'"/>, or copy the link below:</p>
+    <input type="text" value="http://www.freezefram.es/s/{{ share_id }}"></input>
 </div>
 
 	<script>
@@ -161,10 +162,26 @@
    				"easeOutQuint"
 			);
 		});
+		$('#down3').click(function(event){
+			$('#sep3').show();
+			$("#reaction").show();
+			$('html, body').animate({ 
+   				scrollTop: $(document).height()-$(window).height()}, 
+   				1400, 
+   				"easeOutQuint"
+			);
+		});
+
+		$('#down4').click(function(event){
+			$('#sep4').show();
+			$("#reactions").show();
+			$('html, body').animate({ 
+   				scrollTop: $(document).height()-$(window).height()}, 
+   				1400, 
+   				"easeOutQuint"
+			);
+		});
 	</script>
-
 {% endblock %}
-
-
 {% block styles %}{% endblock %}
 {% block scripts %}{% endblock %}
