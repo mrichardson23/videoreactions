@@ -41,7 +41,7 @@
     	</script>
     	
 
-
+		<br/><br/><br/>
     	<p>Click "Allow," or it won't work!</p>
 
 		<script language="JavaScript">
@@ -78,8 +78,8 @@
 
 	</div>
 
-	<div class="span7">
-		<!--<div id="reminder">
+	<!--<div class="span3">
+		<div id="reminder">
 			<p>Click "Allow" before playing the video!</p>
 		</div>
 			<script>
@@ -89,6 +89,7 @@
 			</script>
 	</div>
 </div>-->
+<br/><br/><br/>
 <div class="row">
 	<p> Share with your friends on <a href="https://twitter.com/share" class="twitter-share-button" data-via="twitterapi" data-lang="en"><img src="{{ url_for('static', filename='img/Tblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/Tgrey.png') }}'" onmouseout="this.src='{{ url_for('static', filename='img/Tblue.png') }}'"/></a> or <img src="{{ url_for('static', filename='img/FBblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/FBgrey.png') }}'"onmouseout="this.src='{{ url_for('static', filename='img/FBblue.png') }}'"/>, or copy the link below:</p>
     <input type="text" value="http://www.freezefram.es/s/{{ share_id }}"></input>
@@ -98,9 +99,9 @@
 <div>
 	{% if reactions %}
 	<p><a href="#" id="showReactions">Show Reactions</a></p>
-	<div id="reactions" style="display: none;">
+	<div class="img-polaroid" id="reactions">
 		{% for reaction in reactions %}
-			<img src="{{reaction.fileID}}" height="160" width="120" style="margin-top:10px;">
+			<img src="{{reaction.fileID}}" height="160" width="120"">
 		{% endfor %}
 	</div>
 	{% endif %}
