@@ -1,0 +1,137 @@
+{% from "_form_helpers.html" import render_error, render_textarea %}
+{% extends "layout/main.html" %}
+
+
+{% block body %}
+
+        <!-- Popcorn: -->
+        <script src="http://popcornjs.org/code/dist/popcorn-complete.min.js"></script>
+        <script>
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var reactVid = Popcorn.youtube(
+               '#reactVid',
+               'http://www.youtube.com/embed/{{ vid_id }}?showinfo=0' );
+            var snapped = false;
+            function vidCheck() {
+                if( (reactVid.roundTime() == {{ reaction_time }}) && (snapped == false)) {
+                    take_snapshot();
+                    snapped = true;
+                    $('#reaction-cue').show();
+                }
+            }
+            var t = setInterval(vidCheck,1000);
+        });
+
+        </script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/webcam.js') }}"></script>
+    	<!-- Configure a few settings -->
+    	<script language="JavaScript">
+        	webcam.set_api_url( 'http://chas.mattrichardson.net/vidReactions/test.php?id={{ share_id }}' );
+        	webcam.set_quality( 90 ); // JPEG quality (1 - 100)
+        	webcam.set_shutter_sound( false ); // play shutter click sound
+    	</script>
+    	
+<!-- Welcome message -->
+<div class="row">
+	<div class="span12">
+		<h1 class="pageMessage">
+			Your friend wants to see your reaction to a video!
+		</h1>
+		<h1 class="pageMessage" id="down1">
+			&darr;>
+		</h1>
+	</div>
+</div>
+
+<div class="row" style="height: 700px;"></div>
+
+<!-- Webcam  -->
+<div class="row">
+	<div class="span12">
+		<h1 class="videoMessage">
+			Click allow and check your hair!
+		</h1>
+		<script language="JavaScript">
+			document.write( webcam.get_html(960, 540) );
+			webcam.set_hook( 'onComplete', 'my_completion_handler' );
+			webcam.set_hook( 'onLoad', 'my_load_handler' );
+			function my_load_handler() {
+			}
+
+			function take_snapshot() {
+				webcam.snap();
+			}
+
+			function my_delayed_completion_handler(msg) {
+				$.post("/addreaction", { share_id: '{{ share_id }}', file: msg } );
+			}
+			
+			function my_completion_handler(msg) {
+				// extract URL out of PHP output
+				if (msg.match(/(http\:\/\/\S+)/)) {
+					var image_url = RegExp.$1;
+					setTimeout(my_delayed_completion_handler(image_url), 3000);
+					//webcam.reset();
+				}
+				else alert("PHP Error: " + msg);
+			}
+			</script>
+	</div>
+</div>
+
+<div class="row" style="height: 700px;"></div>
+
+<!-- video -->
+<div class="row">
+	<div class="span12">
+		<h1 class="videoMessage">
+			Now you're ready to watch!
+		</h1>
+		<div id="reactVid" style="width: 960px; height: 540px; z-index: -1;"></div>
+	</div>
+</div>
+
+<div class="row" style="height: 700px;"></div>
+
+<!-- reaction -->
+<div>
+	<h1 class="videoMessage">
+		Here's how you reacted!
+	</h1>
+</div>
+
+
+<div class="row">
+	<p> Share with your friends on <img src="{{ url_for('static', filename='img/Tblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/Tgrey.png') }}'" onmouseout="this.src='{{ url_for('static', filename='img/Tblue.png') }}'"/> or <img src="{{ url_for('static', filename='img/FBblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/FBgrey.png') }}'"onmouseout="this.src='{{ url_for('static', filename='img/FBblue.png') }}'"/>, or copy the link below:</p>
+    <input type="text" value="http://www.freezefram.es/s/{{ share_id }}"></input>
+</div>
+
+<div>
+	{% if reactions %}
+	<p><a href="#" id="showReactions">Show Reactions</a></p>
+	<div id="reactions" style="display: none;">
+		{% for reaction in reactions %}
+			<img src="{{reaction.fileID}}" height="160" width="120" style="margin-top:10px;">
+		{% endfor %}
+	</div>
+	{% endif %}
+</div>
+
+	<script>
+		$('#showReactions').click(function(event) {
+		      $('#reactions').show('slow');
+		      $('#showReactions').html("");
+		});
+		$('#down1').click(function(event){
+			$('#')
+		});
+	</script>
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}

@@ -37,6 +37,14 @@ p {
 	color: #FFFFFF;
 }
 
+.videoMessage {
+	font-family: 'Nexa Regular', Helvetica, Arial, Sans-Serif;
+	font-size: 60px;
+	line-height: 120px;
+	margin-top: 20px;
+	color: #FFFFFF;
+}
+
 #instructions {
 	font-family: 'Nexa Black', Helvetica, Arial, Sans-Serif;
 	font-size: 53px;
