@@ -18,11 +18,16 @@
                 if( (reactVid.roundTime() == {{ reaction_time }}) && (snapped == false)) {
                     take_snapshot();
                     snapped = true;
-                    $('#reaction-cue').show();
-                }
+                    $('#reactPrompt').show();
+					$('html, body').animate({ 
+   						scrollTop: $(document).height()-$(window).height()}, 
+   						1400, 
+   						"easeOutQuint"
+					);
             }
-            var t = setInterval(vidCheck,1000);
-        });
+        	}
+        	var t = setInterval(vidCheck,1000);
+    });
 
         </script>
 
@@ -35,21 +40,21 @@
     	</script>
     	
 <!-- Welcome message -->
-<div class="row">
+<div class="row" style="margin-top: 50px">
 	<div class="span12">
 		<h1 class="pageMessage">
 			Your friend wants to see your reaction to a video!
 		</h1>
 		<h1 class="pageMessage" id="down1">
-			&darr;>
+			&darr;
 		</h1>
 	</div>
 </div>
 
-<div class="row" style="height: 700px;"></div>
+<div class="row" id="sep1" style="height: 700px; display: none;"></div>
 
 <!-- Webcam  -->
-<div class="row">
+<div class="row" id="webcam" style="display: none; padding-bottom: 10px;">
 	<div class="span12">
 		<h1 class="videoMessage">
 			Click allow and check your hair!
@@ -74,37 +79,50 @@
 				if (msg.match(/(http\:\/\/\S+)/)) {
 					var image_url = RegExp.$1;
 					setTimeout(my_delayed_completion_handler(image_url), 3000);
-					//webcam.reset();
+					$("#reactimg").attr("src",msg);
+					$("#reaction").show();
 				}
 				else alert("PHP Error: " + msg);
 			}
 			</script>
+		<h1 class="pageMessage" id="down2">
+			&darr;
+		</h1>
 	</div>
 </div>
 
-<div class="row" style="height: 700px;"></div>
+<div class="row" id="sep2" style="height: 700px; display: none;"></div>
 
 <!-- video -->
-<div class="row">
+<div class="row" id="video" style="display: none;">
 	<div class="span12">
 		<h1 class="videoMessage">
 			Now you're ready to watch!
 		</h1>
-		<div id="reactVid" style="width: 960px; height: 540px; z-index: -1;"></div>
+		<div id="reactVid" style="width: 960px; height: 540px; z-index: -1; margin-bottom: 40px;"></div>
 	</div>
 </div>
-
-<div class="row" style="height: 700px;"></div>
-
-<!-- reaction -->
-<div>
+<div class="row" id="reactPrompt" style="display: none;">
 	<h1 class="videoMessage">
-		Here's how you reacted!
+		See how you reacted! &darr;
 	</h1>
 </div>
 
+</div>
+<div class="row" id="sep3" style="height: 700px; display: none;"></div>
 
-<div class="row">
+<!-- reaction -->
+<div class="row" id="reaction" style="display: none;">
+	<div class="span12">
+		<h1 class="videoMessage">
+			Here's how you reacted!
+		</h1>
+		<img src="" id="reactimg">
+	</div>
+</div>
+
+
+<div class="row" style="display: none;">
 	<p> Share with your friends on <img src="{{ url_for('static', filename='img/Tblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/Tgrey.png') }}'" onmouseout="this.src='{{ url_for('static', filename='img/Tblue.png') }}'"/> or <img src="{{ url_for('static', filename='img/FBblue.png') }}" onmouseover="this.src='{{ url_for('static', filename='img/FBgrey.png') }}'"onmouseout="this.src='{{ url_for('static', filename='img/FBblue.png') }}'"/>, or copy the link below:</p>
     <input type="text" value="http://www.freezefram.es/s/{{ share_id }}"></input>
 </div>
@@ -122,11 +140,26 @@
 
 	<script>
 		$('#showReactions').click(function(event) {
-		      $('#reactions').show('slow');
-		      $('#showReactions').html("");
+			$('#reactions').show('slow');
+			$('#showReactions').html("");
 		});
 		$('#down1').click(function(event){
-			$('#')
+			$('#sep1').show();
+			$("#webcam").show();
+			$('html, body').animate({ 
+   				scrollTop: $(document).height()-$(window).height()}, 
+   				1400, 
+   				"easeOutQuint"
+			);
+		});
+		$('#down2').click(function(event){
+			$('#sep2').show();
+			$("#video").show();
+			$('html, body').animate({ 
+   				scrollTop: $(document).height()-$(window).height()}, 
+   				1400, 
+   				"easeOutQuint"
+			);
 		});
 	</script>
 
