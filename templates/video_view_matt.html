@@ -79,7 +79,7 @@
 				if (msg.match(/(http\:\/\/\S+)/)) {
 					var image_url = RegExp.$1;
 					setTimeout(my_delayed_completion_handler(image_url), 3000);
-					$("#reactimg").attr("src",msg);
+					$("#reactimg").attr("src",image_url);
 				}
 				else alert("PHP Error: " + msg);
 			}
